@@ -6,3 +6,7 @@
 /.project
 /.settings/
 /bin/
+
+#IntelliJ:
+/.idea/
+/*.iml
