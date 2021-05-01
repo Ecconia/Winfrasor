@@ -7,11 +7,18 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.border.LineBorder;
 
+import de.ecconia.winfrasor.api.Element;
+import de.ecconia.winfrasor.api.Root;
 import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
 
 @SuppressWarnings("serial")
-public class ReplacerRoot extends JComponent implements Replacer
+public class ReplacerRoot extends JComponent implements Replacer, Root
 {
+	public ReplacerRoot(Element element)
+	{
+		this((Component) element);
+	}
+	
 	public ReplacerRoot(Component comp)
 	{
 		setBackground(Colors.contentBG);
@@ -29,7 +36,7 @@ public class ReplacerRoot extends JComponent implements Replacer
 	
 	public ReplacerRoot()
 	{
-		this(null);
+		this((Component) null);
 	}
 	
 	@Override
@@ -60,13 +67,7 @@ public class ReplacerRoot extends JComponent implements Replacer
 	@Override
 	public void free(Component identifier, Component component)
 	{
-		removeAll();
-		//In some cases component is not wrapped anymore. (Was original a TAB or something). This wraps it again to ensure proper treatment.
-		if(!(component instanceof ReplacerPane))
-		{
-			component = new ReplacerPane(component);
-		}
-		add(component);
+		setChild(component);
 	}
 	
 	@Override
@@ -76,5 +77,43 @@ public class ReplacerRoot extends JComponent implements Replacer
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
 		super.paint(g);
+	}
+	
+	@Override
+	public Element getChild()
+	{
+		Component comp = getComponent(0);
+		if(comp instanceof ReplacerPane)
+		{
+			return ((ReplacerPane) comp).getElement();
+		}
+		else
+		{
+			throw new IllegalStateException("The root pane should only and always contain a " + ReplacerPane.class.getSimpleName() + ", but " + comp.getClass().getSimpleName() + " was found.");
+		}
+	}
+	
+	private void setChild(Component component)
+	{
+		removeAll();
+		//In some cases component is not wrapped anymore. (Was original a TAB or something). This wraps it again to ensure proper treatment.
+		//By now it can be something inserted (external) too.
+		if(!(component instanceof ReplacerPane))
+		{
+			component = new ReplacerPane(component);
+		}
+		add(component);
+	}
+	
+	@Override
+	public void setChild(Element tab)
+	{
+		setChild(tab.asComponent());
+	}
+	
+	@Override
+	public Component asComponent()
+	{
+		return this;
 	}
 }

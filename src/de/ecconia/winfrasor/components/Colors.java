@@ -20,6 +20,7 @@ public class Colors
 	//Darker - SELECTED
 	//Darkest - HOVER
 	
+	public static final Color text = new Color(200, 200, 200);
 	public static final Color borderBG = darkIIIIII;
 	public static final Color hoverBG = darkI;
 	public static final Color contentBG = darkIII;

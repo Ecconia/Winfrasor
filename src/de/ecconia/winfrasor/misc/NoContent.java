@@ -1,10 +1,11 @@
 package de.ecconia.winfrasor.misc;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import de.ecconia.winfrasor.components.Colors;
 
@@ -18,6 +19,8 @@ public class NoContent extends JPanel
 		
 		setMinimumSize(new Dimension(50, 50));
 		
-		add(new JLabel(content));
+		setLayout(new BorderLayout());
+//		add(new JLabel(content));
+		add(new JTextArea());
 	}
 }

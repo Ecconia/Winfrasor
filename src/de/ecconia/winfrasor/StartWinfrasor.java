@@ -4,8 +4,10 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import de.ecconia.winfrasor.components.ReplacerRoot;
-import de.ecconia.winfrasor.components.tabpane.TabPane;
+import de.ecconia.winfrasor.api.Root;
+import de.ecconia.winfrasor.api.Tab;
+import de.ecconia.winfrasor.api.TabHolder;
+import de.ecconia.winfrasor.api.Winfrasor;
 import de.ecconia.winfrasor.misc.NoContent;
 
 public class StartWinfrasor
@@ -17,6 +19,7 @@ public class StartWinfrasor
 	 * - Threadsafing, only work from AWT thread, lock components, and moar?
 	 * - Retina support.
 	 * - New Tab support.
+	 * - If the last Tab of a neverClose TabHolder gets moved, move the TabHolder instead/along.
 	 */
 	/*
 	 * MAJOR TODO's:
@@ -30,6 +33,8 @@ public class StartWinfrasor
 	
 	public static void main(String[] args)
 	{
+		Winfrasor core = new Winfrasor();
+		
 		//Origin of tabs, just an infinite generator as source for the other frame.
 		JFrame mainFrame = new JFrame("New Empty Frame");
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -37,10 +42,9 @@ public class StartWinfrasor
 		mainFrame.setLocation(1300, 100);
 		mainFrame.setPreferredSize(new Dimension(500, 100));
 		
-		TabPane tabber = new TabPane();
-		mainFrame.add(new ReplacerRoot(tabber));
-		
-		mainFrame.dispose();
+		TabHolder tabber = core.genTabHolder();
+		Root rootPane = core.genRootPane(tabber);
+		mainFrame.add(rootPane.asComponent());
 		
 		mainFrame.pack();
 		mainFrame.setVisible(true);
@@ -52,9 +56,8 @@ public class StartWinfrasor
 		newMainFrame.setLocation(1300, 200);
 		newMainFrame.setPreferredSize(new Dimension(500, 500));
 		
-		newMainFrame.add(new ReplacerRoot());
-		
-		newMainFrame.dispose();
+		Root root = core.genRootPane();
+		newMainFrame.add(root.asComponent());
 		
 		newMainFrame.pack();
 		newMainFrame.setVisible(true);
@@ -63,10 +66,10 @@ public class StartWinfrasor
 		int label = 0;
 		while(mainFrame.isVisible())
 		{
-			int missingAmount = 10 - tabber.getTabCount();
+			int missingAmount = 10 - tabber.getTabAmount();
 			for(int i = 0; i < missingAmount; i++)
 			{
-				TabData tab = new TabData("Tab: " + label, new NoContent("" + label));
+				Tab tab = new Tab("Tab: " + label, new NoContent("" + label));
 				tabber.addTab(tab);
 				label++;
 			}

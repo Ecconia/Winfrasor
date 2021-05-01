@@ -122,7 +122,7 @@ public class TabPaneEntry extends JComponent implements DragListener
 		}
 		g.fillRect(x, y, tabWidth, tabHeight);
 		
-		g.setColor(Color.black);
+		g.setColor(Colors.text);
 		g.drawString(title, x + 10, y + tabHeight / 2 + titleHeight / 2 - 1);
 		
 		g.setColor(Color.black);

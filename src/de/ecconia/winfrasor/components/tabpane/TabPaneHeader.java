@@ -22,6 +22,7 @@ public class TabPaneHeader extends JComponent implements DropListener
 {
 	private Point dndPoint;
 	private TabPaneEntry active;
+	private boolean closeOnEmpty = true;
 	
 	private final TabPaneBody body;
 	
@@ -35,6 +36,16 @@ public class TabPaneHeader extends JComponent implements DropListener
 		
 		setLayout(new TabLayout());
 		setMinimumSize(new Dimension(30, 30));
+	}
+	
+	public void setCloseOnEmpty(boolean closeOnEmpty)
+	{
+		this.closeOnEmpty = closeOnEmpty;
+		
+		if(closeOnEmpty)
+		{
+			checkNotEmpty();
+		}
 	}
 	
 	public void clicked(TabPaneEntry entry)
@@ -80,7 +91,17 @@ public class TabPaneHeader extends JComponent implements DropListener
 		
 		remove(entry);
 		
-		if(getComponentCount() == 0)
+		if(checkNotEmpty())
+		{
+			invalidate();
+			validate();
+			repaint();
+		}
+	}
+	
+	private boolean checkNotEmpty()
+	{
+		if(closeOnEmpty && getComponentCount() == 0)
 		{
 			Replacer replacer = (Replacer) getParent().getParent();
 			//TBI: Nope, Nope. Please investigate and improve.
@@ -93,12 +114,12 @@ public class TabPaneHeader extends JComponent implements DropListener
 			{
 				System.out.println("The one thing which should not be null just was null... Investigate! #TabPaneHeader");
 			}
+			
+			return false;
 		}
 		else
 		{
-			invalidate();
-			validate();
-			repaint();
+			return true;
 		}
 	}
 	
