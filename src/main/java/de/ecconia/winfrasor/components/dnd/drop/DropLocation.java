@@ -13,7 +13,7 @@ public enum DropLocation
 	private final boolean isFirst;
 	private final Orientation orientation;
 	
-	private DropLocation(boolean isFirst, Orientation orientation)
+	DropLocation(boolean isFirst, Orientation orientation)
 	{
 		this.isFirst = isFirst;
 		this.orientation = orientation;

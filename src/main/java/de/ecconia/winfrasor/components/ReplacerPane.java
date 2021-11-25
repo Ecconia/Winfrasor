@@ -19,7 +19,6 @@ import de.ecconia.winfrasor.components.dnd.drop.DnDWrapper.DnDDetectorSingle;
 import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
 import de.ecconia.winfrasor.misc.SplitterLayout;
 
-@SuppressWarnings("serial")
 public class ReplacerPane extends JComponent implements Replacer, Splitter
 {
 	private Orientation orientation;
@@ -95,11 +94,11 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 		int count = getComponentCount();
 		if(count == 0)
 		{
-			throw new IllegalStateException("Attempting to add a Component at location of an empty DndGenericReciever.");
+			throw new IllegalStateException("Attempting to add a Component at location of an empty DndGenericReceiver.");
 		}
 		else if(count > 3 || count == 2)
 		{
-			throw new RuntimeException("DndGenericReciever has invalid elements count: " + count + "/3");
+			throw new RuntimeException("DndGenericReceiver has invalid elements count: " + count + "/3");
 		}
 		else
 		{
@@ -154,10 +153,10 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 		{
 			//TBI: Nope, Nope. Please investigate and improve.
 			//Why is this null from time to time, happens at two places... This fix works though.
-			Replacer repl = (Replacer) getParent();
-			if(repl != null)
+			Replacer replacer = (Replacer) getParent();
+			if(replacer != null)
 			{
-				repl.removeComp(this);
+				replacer.removeComp(this);
 			}
 		}
 		else if(count == 3)
@@ -174,7 +173,7 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 		}
 		else
 		{
-			throw new RuntimeException("Attempted to remove from DndGenericReciever but it had " + count + "/3 elements.");
+			throw new RuntimeException("Attempted to remove from DndGenericReceiver but it had " + count + "/3 elements.");
 		}
 	}
 	
@@ -301,7 +300,7 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 			}
 			else
 			{
-				//Assume that it inplments Element
+				//Assume that it implements Element
 				return (Element) comp;
 			}
 		}

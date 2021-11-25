@@ -11,10 +11,9 @@ import de.ecconia.winfrasor.components.Replacer;
 import de.ecconia.winfrasor.components.dnd.drop.DnDWrapper.DnDDetectorMulti;
 import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
 
-@SuppressWarnings("serial")
 public class TabPaneBody extends JComponent implements Replacer
 {
-	private DnDDetectorMulti wrapper;
+	private final DnDDetectorMulti wrapper;
 	
 	public TabPaneBody()
 	{
@@ -56,7 +55,7 @@ public class TabPaneBody extends JComponent implements Replacer
 	@Override
 	public void replace(Component component)
 	{
-		throw new UnsupportedOperationException("The call to here should have never happend.");
+		throw new UnsupportedOperationException("The call to here should have never happened.");
 	}
 	
 	@Override
@@ -69,12 +68,12 @@ public class TabPaneBody extends JComponent implements Replacer
 	@Override
 	public void removeComp(Component identifier)
 	{
-		throw new UnsupportedOperationException("The call to here should have never happend.");
+		throw new UnsupportedOperationException("The call to here should have never happened.");
 	}
 	
 	@Override
 	public void free(Component identifier, Component component)
 	{
-		throw new UnsupportedOperationException("The call to here should have never happend.");
+		throw new UnsupportedOperationException("The call to here should have never happened.");
 	}
 }

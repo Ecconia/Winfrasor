@@ -9,7 +9,6 @@ import javax.swing.JTextArea;
 
 import de.ecconia.winfrasor.components.Colors;
 
-@SuppressWarnings("serial")
 public class NoContent extends JPanel
 {
 	public NoContent(String content)

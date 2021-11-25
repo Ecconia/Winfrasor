@@ -10,7 +10,6 @@ import de.ecconia.winfrasor.api.NoWrap;
 import de.ecconia.winfrasor.api.Tab;
 import de.ecconia.winfrasor.api.TabHolder;
 
-@SuppressWarnings("serial")
 public class TabPane extends JComponent implements NoWrap, TabHolder
 {
 	private final TabPaneHeader header;

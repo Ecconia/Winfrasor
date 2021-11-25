@@ -30,7 +30,7 @@ public class TabData
 	}
 	
 	/**
-	 * Internal method, to generate the DnD shapshot image of the Tab. Width and Height are the size of this pane.
+	 * Internal method, to generate the DnD snapshot image of the Tab. Width and Height are the size of this pane.
 	 */
 	public Image generateImage(int width, int height)
 	{

@@ -17,7 +17,6 @@ import de.ecconia.winfrasor.components.Replacer;
 import de.ecconia.winfrasor.components.dnd.drop.DropHandler;
 import de.ecconia.winfrasor.components.dnd.drop.DropListener;
 
-@SuppressWarnings("serial")
 public class TabPaneHeader extends JComponent implements DropListener
 {
 	private Point dndPoint;
@@ -163,7 +162,7 @@ public class TabPaneHeader extends JComponent implements DropListener
 	
 	/**
 	 * Returns the index of component when the border is printed after it.
-	 * Thats cause the code later has to query the component, thus the index should always be valid.
+	 * That's cause the code later has to query the component, thus the index should always be valid.
 	 * If the index is -1 that means the border before the first index is meant.
 	 */
 	private int getDropIndex(Point p)
@@ -249,7 +248,7 @@ public class TabPaneHeader extends JComponent implements DropListener
 		return true;
 	}
 	
-	private class TabLayout implements LayoutManager
+	private static class TabLayout implements LayoutManager
 	{
 		@Override
 		public void addLayoutComponent(String name, Component comp)

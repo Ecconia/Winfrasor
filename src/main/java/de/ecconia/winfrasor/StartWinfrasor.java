@@ -15,8 +15,8 @@ public class StartWinfrasor
 	/*
 	 * VAGUE/MINOR TODO's:
 	 * - New Button (Is that even needed?)
-	 * - Optimization, no unnessecary calls, no redundant rendering.
-	 * - Threadsafing, only work from AWT thread, lock components, and moar?
+	 * - Optimization, no unnecessary calls, no redundant rendering.
+	 * - Threadsafing, only work from AWT thread, lock components, and more?
 	 * - Retina support.
 	 * - New Tab support.
 	 * - If the last Tab of a neverClose TabHolder gets moved, move the TabHolder instead/along.

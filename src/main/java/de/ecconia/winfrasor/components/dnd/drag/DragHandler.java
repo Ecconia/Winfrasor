@@ -23,7 +23,7 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 	private final DragSource source;
 	private final Object data;
 	
-	private DragListener listener;
+	private final DragListener listener;
 	
 	public DragHandler(Component component, DragListener listener, Object data)
 	{
@@ -92,7 +92,7 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 	@Override
 	public void dragDropEnd(DragSourceDropEvent event)
 	{
-		//TODO: Remove window if existend.
+		//TODO: Remove window if exist.
 		listener.dragEnd();
 		
 		if(event.getDropSuccess())
@@ -104,7 +104,7 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 	@Override
 	public void dragMouseMoved(DragSourceDragEvent dsde)
 	{
-		//TODO: Update window if existend.
+		//TODO: Update window if exist.
 	}
 	
 	//TODO: Re-add the ability to show dragged content. But this time in a safer way. 

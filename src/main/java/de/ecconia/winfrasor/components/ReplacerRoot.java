@@ -11,7 +11,6 @@ import de.ecconia.winfrasor.api.Element;
 import de.ecconia.winfrasor.api.Root;
 import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
 
-@SuppressWarnings("serial")
 public class ReplacerRoot extends JComponent implements Replacer, Root
 {
 	public ReplacerRoot(Element element)
@@ -42,14 +41,14 @@ public class ReplacerRoot extends JComponent implements Replacer, Root
 	@Override
 	public void replace(Component component)
 	{
-		//Won't be called, cause a DnDGenericReciever always wraps the content and never throws it.
+		//Won't be called, cause a DnDGenericReceiver always wraps the content and never throws it.
 		throw new UnsupportedOperationException("This method should never be called.");
 	}
 	
 	@Override
 	public void replace(Component identifier, Component component, DropLocation location)
 	{
-		//Won't be called, cause a DnDGenericReciever always wraps the content and never throws it.
+		//Won't be called, cause a DnDGenericReceiver always wraps the content and never throws it.
 		throw new UnsupportedOperationException("This method should never be called.");
 	}
 	

@@ -7,7 +7,6 @@ import java.awt.Insets;
 
 import javax.swing.border.AbstractBorder;
 
-@SuppressWarnings("serial")
 public class DebugBorder extends AbstractBorder
 {
 	private final Color color;
@@ -36,7 +35,6 @@ public class DebugBorder extends AbstractBorder
 		g.setColor(color);
 		g.drawRect(x + 2, y + 2, w - 4, h - 4);
 	}
-
 	
 	public Insets getBorderInsets(Component c, Insets insets)
 	{

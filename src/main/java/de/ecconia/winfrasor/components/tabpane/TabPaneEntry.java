@@ -18,7 +18,6 @@ import de.ecconia.winfrasor.components.Colors;
 import de.ecconia.winfrasor.components.dnd.drag.DragHandler;
 import de.ecconia.winfrasor.components.dnd.drag.DragListener;
 
-@SuppressWarnings("serial")
 public class TabPaneEntry extends JComponent implements DragListener
 {
 	//TODO: Import/make global:

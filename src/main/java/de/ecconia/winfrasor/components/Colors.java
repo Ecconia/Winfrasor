@@ -15,7 +15,7 @@ public class Colors
 	
 	//Light - BorderBG
 	//Normal - MetaBG
-	//Dark - UNSLECTED
+	//Dark - UNSELECTED
 	//Content - CONTENT
 	//Darker - SELECTED
 	//Darkest - HOVER

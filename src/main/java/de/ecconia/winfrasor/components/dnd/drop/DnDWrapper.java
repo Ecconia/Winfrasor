@@ -12,7 +12,6 @@ import de.ecconia.winfrasor.TabData;
 import de.ecconia.winfrasor.components.Replacer;
 import de.ecconia.winfrasor.components.tabpane.TabPane;
 
-@SuppressWarnings("serial")
 public class DnDWrapper extends JComponent
 {
 	public Component getWrapped()

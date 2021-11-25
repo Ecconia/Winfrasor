@@ -13,7 +13,7 @@ public class SplitterLayout implements LayoutManager
 	private final int gap;
 	private final Orientation orientation;
 	
-	private float distribution = 0.5f;
+	private float distribution;
 	
 	public SplitterLayout(Orientation orientation, int gap, float distribution)
 	{
@@ -118,8 +118,8 @@ public class SplitterLayout implements LayoutManager
 		}
 	}
 
-	public void setDistribution(float distr)
+	public void setDistribution(float distribution)
 	{
-		distribution = distr;
+		this.distribution = distribution;
 	}
 }
