@@ -69,7 +69,7 @@ public class StartWinfrasor
 			int missingAmount = 10 - tabber.getTabAmount();
 			for(int i = 0; i < missingAmount; i++)
 			{
-				Tab tab = new Tab("Tab: " + label, new NoContent("" + label));
+				Tab tab = new Tab("Tab: " + label, new NoContent("Long text, yay very long, hmm long, yes! " + label));
 				tabber.addTab(tab);
 				label++;
 			}

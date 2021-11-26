@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -19,7 +20,10 @@ public class NoContent extends JPanel
 		setMinimumSize(new Dimension(50, 50));
 		
 		setLayout(new BorderLayout());
-//		add(new JLabel(content));
-		add(new JTextArea());
+		add(new JLabel(content), BorderLayout.NORTH);
+		JTextArea area = new JTextArea();
+		area.getDropTarget().setActive(false);
+		add(area);
+		add(new JLabel(content), BorderLayout.SOUTH);
 	}
 }
