@@ -17,6 +17,9 @@ import de.ecconia.winfrasor.components.Replacer;
 import de.ecconia.winfrasor.components.dnd.drop.DropHandler;
 import de.ecconia.winfrasor.components.dnd.drop.DropListener;
 
+/**
+ * The header of the TabPane, holds the tabs.
+ */
 public class TabPaneHeader extends JComponent implements DropListener
 {
 	private Point dndPoint;

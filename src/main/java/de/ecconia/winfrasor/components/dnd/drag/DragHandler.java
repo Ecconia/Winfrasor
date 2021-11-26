@@ -18,6 +18,9 @@ import java.io.IOException;
 
 import de.ecconia.winfrasor.components.dnd.TabFlavor;
 
+/**
+ * In charge of recognizing when a component is moved to start dragging it.
+ */
 public class DragHandler implements DragGestureListener, DragSourceListener, DragSourceMotionListener
 {
 	private final DragSource source;

@@ -11,6 +11,9 @@ import java.io.IOException;
 
 import de.ecconia.winfrasor.components.dnd.TabFlavor;
 
+/**
+ * A wrapper for Javas DropTarget class. Updates the callback with a new position and when a drop happens.
+ */
 public class DropHandler implements DropTargetListener
 {
 	private final DropListener listener;

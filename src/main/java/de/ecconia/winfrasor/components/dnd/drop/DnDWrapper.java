@@ -12,7 +12,10 @@ import de.ecconia.winfrasor.TabData;
 import de.ecconia.winfrasor.components.Replacer;
 import de.ecconia.winfrasor.components.tabpane.TabPane;
 
-public class DnDWrapper extends JComponent
+/**
+ * Two classes to wrap a component to receive drop events.
+ */
+public abstract class DnDWrapper extends JComponent
 {
 	public Component getWrapped()
 	{
@@ -27,6 +30,9 @@ public class DnDWrapper extends JComponent
 		g.drawRect(x + 2, y + 2, w - 4, h - 4);
 	}
 	
+	/**
+	 * Meant for components which you fully want to replaced with dropped content.
+	 */
 	public static class DnDDetectorSingle extends DnDWrapper implements DropListener
 	{
 		private Point dndPoint;
@@ -69,6 +75,9 @@ public class DnDWrapper extends JComponent
 		}
 	}
 	
+	/**
+	 * Meant for splitting the content into multiple areas, if you drop something into it.
+	 */
 	public static class DnDDetectorMulti extends DnDWrapper implements DropListener
 	{
 		private Point dndPoint;
@@ -99,20 +108,20 @@ public class DnDWrapper extends JComponent
 					
 					switch(location)
 					{
-					case Top:
-						drawRing(g, 0, 0, width, height / 2);
-						break;
-					case Bottom:
-						drawRing(g, 0, height / 2, width, height / 2);
-						break;
-					case Left:
-						drawRing(g, 0, 0, width / 2, height);
-						break;
-					case Right:
-						drawRing(g, width / 2, 0, width / 2, height);
-						break;
-					default:
-						break;
+						case Top:
+							drawRing(g, 0, 0, width, height / 2);
+							break;
+						case Bottom:
+							drawRing(g, 0, height / 2, width, height / 2);
+							break;
+						case Left:
+							drawRing(g, 0, 0, width / 2, height);
+							break;
+						case Right:
+							drawRing(g, width / 2, 0, width / 2, height);
+							break;
+						default:
+							break;
 					}
 				}
 			}

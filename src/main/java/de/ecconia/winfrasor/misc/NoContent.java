@@ -10,6 +10,14 @@ import javax.swing.JTextArea;
 
 import de.ecconia.winfrasor.components.Colors;
 
+/**
+ * A class just for the original example. It has some example content.
+ *
+ * Be aware, that most Swing Text fields and areas do steal the drop focus!
+ *  Can be prevented by calling'{object}.getDropTarget().setActive(false);'
+ *  Not a good solution, but maybe enough for your usecase.
+ *  If you know a better solution let me know.
+ */
 public class NoContent extends JPanel
 {
 	public NoContent(String content)

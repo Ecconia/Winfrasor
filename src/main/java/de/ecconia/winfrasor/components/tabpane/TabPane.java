@@ -10,6 +10,11 @@ import de.ecconia.winfrasor.api.NoWrap;
 import de.ecconia.winfrasor.api.Tab;
 import de.ecconia.winfrasor.api.TabHolder;
 
+/**
+ * The TabPane has a header and a body. Its your custom TabView.
+ *
+ * The body of this pane will be replaced with the selected tab (or nothing).
+ */
 public class TabPane extends JComponent implements NoWrap, TabHolder
 {
 	private final TabPaneHeader header;

@@ -11,6 +11,11 @@ import de.ecconia.winfrasor.api.Element;
 import de.ecconia.winfrasor.api.Root;
 import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
 
+/**
+ * This class is a root handler component to be inserted as top-level entry for this framework.
+ *
+ * It mainly hosts a ReplacerPane, with a start component (some sort of Tab-View) or nothing.
+ */
 public class ReplacerRoot extends JComponent implements Replacer, Root
 {
 	public ReplacerRoot(Element element)

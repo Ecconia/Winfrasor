@@ -11,6 +11,9 @@ import de.ecconia.winfrasor.components.Replacer;
 import de.ecconia.winfrasor.components.dnd.drop.DnDWrapper.DnDDetectorMulti;
 import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
 
+/**
+ * The body of the TabPane.
+ */
 public class TabPaneBody extends JComponent implements Replacer
 {
 	private final DnDDetectorMulti wrapper;
@@ -37,12 +40,15 @@ public class TabPaneBody extends JComponent implements Replacer
 		//TBI: Is changing the visibility okay?
 		if(wrapper.getComponentCount() > 0)
 		{
+			//Gets the first (and only) component from the wrapper.
 			wrapper.getComponent(0).setVisible(false);
 		}
 		
+		//Remove all of the children (well it should only be one) from the wrapper.
 		wrapper.removeAll();
 		if(comp != null)
 		{
+			//Add the new (to be displayed) component
 			comp.setVisible(true);
 			wrapper.add(comp);
 		}

@@ -19,6 +19,12 @@ import de.ecconia.winfrasor.components.dnd.drop.DnDWrapper.DnDDetectorSingle;
 import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
 import de.ecconia.winfrasor.misc.SplitterLayout;
 
+/**
+ * This class can be initialized with or without a component, which changes its behavior.
+ *
+ * Without a component, you can drag anything into it.
+ * With a component, you can decide in which of the 4 halfs of this component it will be placed.
+ */
 public class ReplacerPane extends JComponent implements Replacer, Splitter
 {
 	private Orientation orientation;
