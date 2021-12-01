@@ -19,4 +19,6 @@ public interface TabHolder extends Element
 	boolean removeTab(int index);
 	
 	void setNeverClose(boolean neverClose);
+	
+	void setDropCreatesNewWindow(boolean dropCreatesNewWindow);
 }

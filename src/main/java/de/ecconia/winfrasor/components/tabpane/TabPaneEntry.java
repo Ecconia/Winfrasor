@@ -169,4 +169,10 @@ public class TabPaneEntry extends JComponent implements DragListener
 	{
 		header.closed(this);
 	}
+	
+	@Override
+	public void dragFailed(Point location)
+	{
+		header.dragFailed(this, location);
+	}
 }

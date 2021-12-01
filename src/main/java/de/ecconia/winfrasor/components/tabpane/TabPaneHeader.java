@@ -10,10 +10,15 @@ import java.awt.LayoutManager;
 import java.awt.Point;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 import de.ecconia.winfrasor.TabData;
+import de.ecconia.winfrasor.api.Root;
+import de.ecconia.winfrasor.api.Tab;
+import de.ecconia.winfrasor.api.TabHolder;
 import de.ecconia.winfrasor.components.Colors;
 import de.ecconia.winfrasor.components.Replacer;
+import de.ecconia.winfrasor.components.ReplacerRoot;
 import de.ecconia.winfrasor.components.dnd.drop.DropHandler;
 import de.ecconia.winfrasor.components.dnd.drop.DropListener;
 
@@ -25,6 +30,7 @@ public class TabPaneHeader extends JComponent implements DropListener
 	private Point dndPoint;
 	private TabPaneEntry active;
 	private boolean closeOnEmpty = true;
+	private boolean dropCreatesNewWindow;
 	
 	private final TabPaneBody body;
 	
@@ -38,6 +44,11 @@ public class TabPaneHeader extends JComponent implements DropListener
 		
 		setLayout(new TabLayout());
 		setMinimumSize(new Dimension(30, 30));
+	}
+	
+	public void setDropCreatesNewWindow(boolean dropCreatesNewWindow)
+	{
+		this.dropCreatesNewWindow = dropCreatesNewWindow;
 	}
 	
 	public void setCloseOnEmpty(boolean closeOnEmpty)
@@ -98,6 +109,33 @@ public class TabPaneHeader extends JComponent implements DropListener
 			invalidate();
 			validate();
 			repaint();
+		}
+	}
+	
+	public void dragFailed(TabPaneEntry entry, Point location)
+	{
+		//Possibility of custom handler.
+		if(dropCreatesNewWindow)
+		{
+			closed(entry);
+			TabData tabData = entry.getTab();
+			Tab tab = new Tab(tabData.getTitle(), tabData.getComponent());
+			
+			//TODO: Factory.
+			JFrame someFrame = new JFrame("Generated window...");
+			someFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			
+			someFrame.setLocation(location.x, location.y);
+//			someFrame.setPreferredSize(new Dimension(500, 100));
+			
+			TabHolder tabber = new TabPane();
+			tabber.setDropCreatesNewWindow(true);
+			tabber.addTab(tab);
+			Root rootPane = new ReplacerRoot(tabber);
+			someFrame.add(rootPane.asComponent());
+			
+			someFrame.pack();
+			someFrame.setVisible(true);
 		}
 	}
 	

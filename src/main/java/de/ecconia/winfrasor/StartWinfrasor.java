@@ -43,6 +43,7 @@ public class StartWinfrasor
 		mainFrame.setPreferredSize(new Dimension(500, 100));
 		
 		TabHolder tabber = core.genTabHolder();
+		tabber.setDropCreatesNewWindow(true);
 		Root rootPane = core.genRootPane(tabber);
 		mainFrame.add(rootPane.asComponent());
 		

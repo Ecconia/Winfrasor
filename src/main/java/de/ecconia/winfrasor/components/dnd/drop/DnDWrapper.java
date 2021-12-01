@@ -168,8 +168,9 @@ public abstract class DnDWrapper extends JComponent
 			{
 				TabData data = (TabData) obj;
 				
-				//TODO: Factory
+				//TODO: Factory, which sets if drops generate new windows for example.
 				TabPane tabber = new TabPane();
+				tabber.setDropCreatesNewWindow(true);
 				tabber.addTab(data);
 				
 				Replacer parent = (Replacer) getParent();

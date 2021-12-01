@@ -111,6 +111,10 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 		{
 			listener.dragSuccessful();
 		}
+		else
+		{
+			listener.dragFailed(event.getLocation());
+		}
 	}
 	
 	@Override

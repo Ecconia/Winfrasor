@@ -102,4 +102,10 @@ public class TabPane extends JComponent implements NoWrap, TabHolder
 	{
 		header.setCloseOnEmpty(!neverClose);
 	}
+	
+	@Override
+	public void setDropCreatesNewWindow(boolean dropCreatesNewWindow)
+	{
+		header.setDropCreatesNewWindow(dropCreatesNewWindow);
+	}
 }
