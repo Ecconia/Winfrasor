@@ -28,6 +28,8 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 	
 	private final DragListener listener;
 	
+	private boolean isDragging; //For some reason the drop-end fires twice. This boolean shall prevent any ending call, if there was no drag start.
+	
 	public DragHandler(Component component, DragListener listener, Object data)
 	{
 		this.data = data;
@@ -42,6 +44,7 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 	@Override
 	public void dragGestureRecognized(DragGestureEvent event)
 	{
+		isDragging = true;
 		//TODO: Create window.
 		listener.dragStart();
 		
@@ -95,6 +98,12 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 	@Override
 	public void dragDropEnd(DragSourceDropEvent event)
 	{
+		if(!isDragging)
+		{
+			return;
+		}
+		isDragging = false;
+		
 		//TODO: Remove window if exist.
 		listener.dragEnd();
 		
