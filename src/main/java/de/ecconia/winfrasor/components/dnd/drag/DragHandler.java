@@ -123,10 +123,10 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 		//TODO: Update window if exist.
 	}
 	
-	//TODO: Re-add the ability to show dragged content. But this time in a safer way. 
-//	if(image != null)
+	//TODO: Re-add the ability to show dragged content. But this time in a safer way.
+//	if(image != null) //We only have 'Object data' that is not tab-data. So where do we get the image from?
 //	{
-//		Window owner = SwingUtilities.getWindowAncestor(pane);
+//		Window owner = SwingUtilities.getWindowAncestor(pane); //pane = dsde.getComponent();
 //		
 //		window = new Window(owner)
 //		{
@@ -138,17 +138,17 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 //		};
 //		window.setAlwaysOnTop(true);
 //		window.setSize(image.getWidth(null), image.getHeight(null));
-//		window.setOpacity(0.8f);
+//		window.setOpacity(0.8f); //Opacity not supported? It is getting worse.
 //		window.setFocusable(false);
-//		setOpacity(window);
+//		//setOpacity(window); // ????
 //	}
 //
 //	if(window != null)
 //	{
-//		Point p = new Point(dsde.getX(), dsde.getY());
+//		Point p = new Point(dsde.getX(), dsde.getY()); //dsde.getLocation();
 //		Dimension size = window.getSize();
-	
-	//TODO: Get monitors, check on which is the x and y and get that size...
+//
+//		//TODO: Get monitors, check on which is the x and y and get that size...
 //		System.out.println(getHeight() + ", " + p.y + ", " + size.height);
 //		if(getHeight() - p.y < size.height)
 //		{
@@ -163,12 +163,5 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 //	{
 //		window.dispose();
 //		window = null;
-//	}
-//	
-//	if(dsde.getDropSuccess())
-//	{
-//		removeTab(draggedIndex);
-//		draggedIndex = null;
-//		draggedTab = null;
 //	}
 }
