@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 
-import de.ecconia.winfrasor.api.Orientation;
-
 public class SplitterLayout implements LayoutManager
 {
 	private final int gap;

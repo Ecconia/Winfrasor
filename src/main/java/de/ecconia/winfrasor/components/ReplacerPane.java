@@ -9,10 +9,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import de.ecconia.winfrasor.api.Element;
-import de.ecconia.winfrasor.api.NoWrap;
-import de.ecconia.winfrasor.api.Orientation;
-import de.ecconia.winfrasor.api.Splitter;
+import de.ecconia.winfrasor.misc.Orientation;
 import de.ecconia.winfrasor.components.dnd.drop.DnDWrapper;
 import de.ecconia.winfrasor.components.dnd.drop.DnDWrapper.DnDDetectorMulti;
 import de.ecconia.winfrasor.components.dnd.drop.DnDWrapper.DnDDetectorSingle;
@@ -25,7 +22,7 @@ import de.ecconia.winfrasor.misc.SplitterLayout;
  * Without a component, you can drag anything into it.
  * With a component, you can decide in which of the 4 halfs of this component it will be placed.
  */
-public class ReplacerPane extends JComponent implements Replacer, Splitter
+public class ReplacerPane extends JComponent implements Replacer
 {
 	private Orientation orientation;
 	private float distribution = 0.5f;
@@ -48,11 +45,6 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 		setLayout(new BorderLayout());
 		add(wrap(component));
 		//setBorder(new DebugBorder());
-	}
-	
-	public ReplacerPane(Orientation orientation, Element componentA, Element componentB)
-	{
-		this(orientation, (Component) componentA, (Component) componentB);
 	}
 	
 	public ReplacerPane(Orientation orientation, Component componentA, Component componentB)
@@ -228,7 +220,7 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 						distr = 1f;
 					}
 					
-					((SplitterLayout) splitLayout).setDistribution(distr);
+					splitLayout.setDistribution(distr);
 					
 					invalidate();
 					validate();
@@ -273,90 +265,5 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 		{
 			throw new RuntimeException("Attempted to remove from DndGenericReciever but it had " + count + "/3 elements.");
 		}
-	}
-	
-	@Override
-	public void setOrientation(Orientation orientation)
-	{
-	}
-	
-	@Override
-	public Orientation getOrientation()
-	{
-		return null;
-	}
-	
-	/**
-	 * INTERNAL Method. Returns either THIS object if this object is in Splitter mode. Or null/the wrapped child of this component. 
-	 */
-	public Element getElement()
-	{
-		int count = getComponentCount();
-		if(count == 3)
-		{
-			return this;
-		}
-		else if(count == 1)
-		{
-			Component comp = getComponent(0);
-			if(comp instanceof DnDDetectorSingle)
-			{
-				return null;
-			}
-			else if(comp instanceof DnDDetectorMulti)
-			{
-				//Assume that only Elements will be wrapped by this (once).
-				return (Element) ((DnDDetectorMulti) comp).getWrapped();
-			}
-			else
-			{
-				//Assume that it implements Element
-				return (Element) comp;
-			}
-		}
-		else
-		{
-			throw new IllegalStateException("Replacer Pane has " + count + " children, only 3 or 1 are allowed.");
-		}
-	}
-	
-	@Override
-	public void setFirst(Element element)
-	{
-	}
-	
-	@Override
-	public void setSecond(Element element)
-	{
-	}
-	
-	@Override
-	public Element getFirst()
-	{
-		return null;
-	}
-	
-	@Override
-	public Element getSecond()
-	{
-		return null;
-	}
-	
-	@Override
-	public Component asComponent()
-	{
-		return this;
-	}
-	
-	@Override
-	public void setDistribution(float distribution)
-	{
-		splitLayout.setDistribution(this.distribution = distribution);
-	}
-	
-	@Override
-	public float getDistribution()
-	{
-		return distribution;
 	}
 }

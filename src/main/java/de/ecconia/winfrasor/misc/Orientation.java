@@ -1,4 +1,4 @@
-package de.ecconia.winfrasor.api;
+package de.ecconia.winfrasor.misc;
 
 public enum Orientation
 {

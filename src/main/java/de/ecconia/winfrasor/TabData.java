@@ -8,25 +8,25 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Icon;
 
-import de.ecconia.winfrasor.api.Tab;
-
 public class TabData
 {
-	private final Tab tab;
+	private final String title;
+	private final Component component;
 	
-	public TabData(Tab tab)
+	public TabData(String title, Component component)
 	{
-		this.tab = tab;
+		this.title = title;
+		this.component = component;
 	}
 	
 	public String getTitle()
 	{
-		return tab.getTitle();
+		return title;
 	}
 	
 	public Component getComponent()
 	{
-		return tab.getComponent();
+		return component;
 	}
 	
 	/**
@@ -38,8 +38,6 @@ public class TabData
 		{
 			return null;
 		}
-		
-		Component component = tab.getComponent();
 		
 		Rectangle rect = component.getBounds();
 		

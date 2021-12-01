@@ -7,8 +7,6 @@ import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
 
-import de.ecconia.winfrasor.api.Orientation;
-
 public class FiftyLayout implements LayoutManager
 {
 	private final Orientation orientation;

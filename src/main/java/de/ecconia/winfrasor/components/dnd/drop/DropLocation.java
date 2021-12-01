@@ -1,6 +1,6 @@
 package de.ecconia.winfrasor.components.dnd.drop;
 
-import de.ecconia.winfrasor.api.Orientation;
+import de.ecconia.winfrasor.misc.Orientation;
 
 /**
  * A data class for which of the 4 half sides of a component is chosen. Relevant for splitting the area in half.

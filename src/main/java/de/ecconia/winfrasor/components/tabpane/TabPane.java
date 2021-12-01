@@ -1,21 +1,18 @@
 package de.ecconia.winfrasor.components.tabpane;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 
 import javax.swing.JComponent;
 
 import de.ecconia.winfrasor.TabData;
-import de.ecconia.winfrasor.api.NoWrap;
-import de.ecconia.winfrasor.api.Tab;
-import de.ecconia.winfrasor.api.TabHolder;
+import de.ecconia.winfrasor.components.NoWrap;
 
 /**
  * The TabPane has a header and a body. Its your custom TabView.
  *
  * The body of this pane will be replaced with the selected tab (or nothing).
  */
-public class TabPane extends JComponent implements NoWrap, TabHolder
+public class TabPane extends JComponent implements NoWrap
 {
 	private final TabPaneHeader header;
 	private final TabPaneBody body;
@@ -35,75 +32,16 @@ public class TabPane extends JComponent implements NoWrap, TabHolder
 		header.addTab(data);
 	}
 	
-	public int getTabCount()
-	{
-		return header.getComponentCount();
-	}
-	
-	//API:
-	
-	@Override
-	public Tab getSelected()
-	{
-		return null;
-	}
-	
-	@Override
-	public boolean setSelected(Tab tab)
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean setSelected(int index)
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean addTab(Tab tab)
-	{
-		addTab(new TabData(tab));
-		return true;
-	}
-	
-	@Override
-	public boolean addTab(Tab tab, int index)
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean removeTab(Tab tab)
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean removeTab(int index)
-	{
-		return false;
-	}
-	
-	@Override
 	public int getTabAmount()
 	{
 		return header.getComponentCount();
 	}
 	
-	@Override
-	public Component asComponent()
-	{
-		return this;
-	}
-	
-	@Override
 	public void setNeverClose(boolean neverClose)
 	{
 		header.setCloseOnEmpty(!neverClose);
 	}
 	
-	@Override
 	public void setDropCreatesNewWindow(boolean dropCreatesNewWindow)
 	{
 		header.setDropCreatesNewWindow(dropCreatesNewWindow);

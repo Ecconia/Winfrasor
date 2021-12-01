@@ -13,9 +13,6 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import de.ecconia.winfrasor.TabData;
-import de.ecconia.winfrasor.api.Root;
-import de.ecconia.winfrasor.api.Tab;
-import de.ecconia.winfrasor.api.TabHolder;
 import de.ecconia.winfrasor.components.Colors;
 import de.ecconia.winfrasor.components.Replacer;
 import de.ecconia.winfrasor.components.ReplacerRoot;
@@ -119,19 +116,17 @@ public class TabPaneHeader extends JComponent implements DropListener
 		{
 			closed(entry);
 			TabData tabData = entry.getTab();
-			Tab tab = new Tab(tabData.getTitle(), tabData.getComponent());
 			
 			//TODO: Factory.
 			JFrame someFrame = new JFrame("Generated window...");
 			someFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			
 			someFrame.setLocation(location.x, location.y);
-//			someFrame.setPreferredSize(new Dimension(500, 100));
 			
-			TabHolder tabber = new TabPane();
+			TabPane tabber = new TabPane();
 			tabber.setDropCreatesNewWindow(true);
-			tabber.addTab(tab);
-			Root rootPane = new ReplacerRoot(tabber);
+			tabber.addTab(tabData);
+			ReplacerRoot rootPane = new ReplacerRoot(tabber);
 			someFrame.add(rootPane.asComponent());
 			
 			someFrame.pack();

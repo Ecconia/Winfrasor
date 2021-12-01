@@ -7,8 +7,6 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.border.LineBorder;
 
-import de.ecconia.winfrasor.api.Element;
-import de.ecconia.winfrasor.api.Root;
 import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
 
 /**
@@ -16,13 +14,8 @@ import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
  *
  * It mainly hosts a ReplacerPane, with a start component (some sort of Tab-View) or nothing.
  */
-public class ReplacerRoot extends JComponent implements Replacer, Root
+public class ReplacerRoot extends JComponent implements Replacer
 {
-	public ReplacerRoot(Element element)
-	{
-		this((Component) element);
-	}
-	
 	public ReplacerRoot(Component comp)
 	{
 		setBackground(Colors.contentBG);
@@ -40,7 +33,7 @@ public class ReplacerRoot extends JComponent implements Replacer, Root
 	
 	public ReplacerRoot()
 	{
-		this((Component) null);
+		this(null);
 	}
 	
 	@Override
@@ -83,20 +76,6 @@ public class ReplacerRoot extends JComponent implements Replacer, Root
 		super.paint(g);
 	}
 	
-	@Override
-	public Element getChild()
-	{
-		Component comp = getComponent(0);
-		if(comp instanceof ReplacerPane)
-		{
-			return ((ReplacerPane) comp).getElement();
-		}
-		else
-		{
-			throw new IllegalStateException("The root pane should only and always contain a " + ReplacerPane.class.getSimpleName() + ", but " + comp.getClass().getSimpleName() + " was found.");
-		}
-	}
-	
 	private void setChild(Component component)
 	{
 		removeAll();
@@ -109,13 +88,6 @@ public class ReplacerRoot extends JComponent implements Replacer, Root
 		add(component);
 	}
 	
-	@Override
-	public void setChild(Element tab)
-	{
-		setChild(tab.asComponent());
-	}
-	
-	@Override
 	public Component asComponent()
 	{
 		return this;

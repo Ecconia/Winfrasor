@@ -67,6 +67,7 @@ public abstract class DnDWrapper extends JComponent
 			
 			//TODO: Factory
 			TabPane tabber = new TabPane();
+			tabber.setDropCreatesNewWindow(true);
 			tabber.addTab(data);
 			
 			Replacer parent = (Replacer) getParent();

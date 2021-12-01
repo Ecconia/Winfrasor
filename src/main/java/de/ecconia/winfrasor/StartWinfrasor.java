@@ -4,10 +4,8 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import de.ecconia.winfrasor.api.Root;
-import de.ecconia.winfrasor.api.Tab;
-import de.ecconia.winfrasor.api.TabHolder;
-import de.ecconia.winfrasor.api.Winfrasor;
+import de.ecconia.winfrasor.components.ReplacerRoot;
+import de.ecconia.winfrasor.components.tabpane.TabPane;
 import de.ecconia.winfrasor.misc.NoContent;
 
 public class StartWinfrasor
@@ -33,8 +31,6 @@ public class StartWinfrasor
 	
 	public static void main(String[] args)
 	{
-		Winfrasor core = new Winfrasor();
-		
 		//Origin of tabs, just an infinite generator as source for the other frame.
 		JFrame mainFrame = new JFrame("New Empty Frame");
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -42,9 +38,9 @@ public class StartWinfrasor
 		mainFrame.setLocation(1300, 100);
 		mainFrame.setPreferredSize(new Dimension(500, 100));
 		
-		TabHolder tabber = core.genTabHolder();
+		TabPane tabber = new TabPane();
 		tabber.setDropCreatesNewWindow(true);
-		Root rootPane = core.genRootPane(tabber);
+		ReplacerRoot rootPane = new ReplacerRoot(tabber);
 		mainFrame.add(rootPane.asComponent());
 		
 		mainFrame.pack();
@@ -57,7 +53,7 @@ public class StartWinfrasor
 		newMainFrame.setLocation(1300, 200);
 		newMainFrame.setPreferredSize(new Dimension(500, 500));
 		
-		Root root = core.genRootPane();
+		ReplacerRoot root = new ReplacerRoot();
 		newMainFrame.add(root.asComponent());
 		
 		newMainFrame.pack();
@@ -70,8 +66,7 @@ public class StartWinfrasor
 			int missingAmount = 10 - tabber.getTabAmount();
 			for(int i = 0; i < missingAmount; i++)
 			{
-				Tab tab = new Tab("Tab: " + label, new NoContent("Long text, yay very long, hmm long, yes! " + label));
-				tabber.addTab(tab);
+				tabber.addTab(new TabData("Tab: " + label, new NoContent("Long text, yay very long, hmm long, yes! " + label)));
 				label++;
 			}
 			
