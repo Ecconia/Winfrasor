@@ -96,7 +96,7 @@ public class TabPane extends JComponent implements NoWrap, TabHolder
 	{
 		return this;
 	}
-
+	
 	@Override
 	public void setNeverClose(boolean neverClose)
 	{

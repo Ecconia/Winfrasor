@@ -96,7 +96,7 @@ public class FiftyLayout implements LayoutManager
 			{
 				int hw = width / 2;
 				int hw2 = width - hw;
-				parent.getComponent(0).setBounds(x,      y, hw, height);
+				parent.getComponent(0).setBounds(x, y, hw, height);
 				parent.getComponent(1).setBounds(x + hw, y, hw2, height);
 			}
 			else

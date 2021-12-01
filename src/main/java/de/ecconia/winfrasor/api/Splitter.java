@@ -13,7 +13,7 @@ public interface Splitter extends Element
 	Element getFirst();
 	
 	Element getSecond();
-
+	
 	void setDistribution(float f);
 	
 	float getDistribution();

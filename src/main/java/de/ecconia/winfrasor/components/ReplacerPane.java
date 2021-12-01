@@ -130,8 +130,8 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 					Component expand = isFirst ? getComponent(0) : getComponent(2);
 					
 					ReplacerPane splitter = new ReplacerPane(location.getOrientation(),
-						location.isFirst() ? component : expand,
-						location.isFirst() ? expand : component);
+							location.isFirst() ? component : expand,
+							location.isFirst() ? expand : component);
 					componentA = isFirst ? splitter : keep;
 					componentB = isFirst ? keep : splitter;
 				}
@@ -163,6 +163,10 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 			if(replacer != null)
 			{
 				replacer.removeComp(this);
+			}
+			else
+			{
+				System.out.println("Got another time null... #ReplacerPane");
 			}
 		}
 		else if(count == 3)
@@ -270,24 +274,24 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 			throw new RuntimeException("Attempted to remove from DndGenericReciever but it had " + count + "/3 elements.");
 		}
 	}
-
+	
 	@Override
 	public void setOrientation(Orientation orientation)
 	{
 	}
-
+	
 	@Override
 	public Orientation getOrientation()
 	{
 		return null;
 	}
-
+	
 	/**
 	 * INTERNAL Method. Returns either THIS object if this object is in Splitter mode. Or null/the wrapped child of this component. 
 	 */
 	public Element getElement()
 	{
-		int count = getComponentCount(); 
+		int count = getComponentCount();
 		if(count == 3)
 		{
 			return this;
@@ -320,36 +324,36 @@ public class ReplacerPane extends JComponent implements Replacer, Splitter
 	public void setFirst(Element element)
 	{
 	}
-
+	
 	@Override
 	public void setSecond(Element element)
 	{
 	}
-
+	
 	@Override
 	public Element getFirst()
 	{
 		return null;
 	}
-
+	
 	@Override
 	public Element getSecond()
 	{
 		return null;
 	}
-
+	
 	@Override
 	public Component asComponent()
 	{
 		return this;
 	}
-
+	
 	@Override
 	public void setDistribution(float distribution)
 	{
 		splitLayout.setDistribution(this.distribution = distribution);
 	}
-
+	
 	@Override
 	public float getDistribution()
 	{

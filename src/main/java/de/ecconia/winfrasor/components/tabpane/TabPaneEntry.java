@@ -25,7 +25,7 @@ public class TabPaneEntry extends JComponent implements DragListener
 {
 	//TODO: Import/make global:
 	private final int tabHeight = 30;
-		
+	
 	private final TabPaneHeader header;
 	private final TabData tab;
 	private boolean active;
@@ -138,32 +138,32 @@ public class TabPaneEntry extends JComponent implements DragListener
 		
 		setPreferredSize(new Dimension(tabWidth, tabHeight));
 	}
-
+	
 	public void setActive(boolean b)
 	{
 		active = b;
 		repaint();
 	}
-
+	
 	public TabData getTab()
 	{
 		return tab;
 	}
-
+	
 	@Override
 	public void dragStart()
 	{
 		setVisible(false);
 		header.repaint();
 	}
-
+	
 	@Override
 	public void dragEnd()
 	{
 		setVisible(true);
 		header.repaint();
 	}
-
+	
 	@Override
 	public void dragSuccessful()
 	{

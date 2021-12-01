@@ -117,7 +117,7 @@ public class SplitterLayout implements LayoutManager
 			throw new IllegalStateException(getClass().getSimpleName() + " only works with 3 child components. Currently: " + parent.getComponentCount());
 		}
 	}
-
+	
 	public void setDistribution(float distribution)
 	{
 		this.distribution = distribution;

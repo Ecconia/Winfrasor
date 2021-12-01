@@ -106,14 +106,13 @@ public class TabPaneHeader extends JComponent implements DropListener
 		if(closeOnEmpty && getComponentCount() == 0)
 		{
 			Replacer replacer = (Replacer) getParent().getParent();
-			//TBI: Nope, Nope. Please investigate and improve.
-			//Does this still happen? -> Yes.
 			if(replacer != null)
 			{
 				replacer.removeComp(getParent());
 			}
 			else
 			{
+				//Used to fail if dragging component into own content.
 				System.out.println("The one thing which should not be null just was null... Investigate! #TabPaneHeader");
 			}
 			

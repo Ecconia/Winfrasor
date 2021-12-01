@@ -138,7 +138,7 @@ public class DragHandler implements DragGestureListener, DragSourceListener, Dra
 //		window.setFocusable(false);
 //		setOpacity(window);
 //	}
-	
+//
 //	if(window != null)
 //	{
 //		Point p = new Point(dsde.getX(), dsde.getY());
