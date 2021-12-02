@@ -10,6 +10,7 @@ import de.ecconia.winfrasor.components.Colors;
 import de.ecconia.winfrasor.components.Replacer;
 import de.ecconia.winfrasor.components.dnd.drop.DnDWrapper.DnDDetectorMulti;
 import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
+import de.ecconia.winfrasor.factories.FactoryContext;
 
 /**
  * The body of the TabPane.
@@ -18,11 +19,11 @@ public class TabPaneBody extends JComponent implements Replacer
 {
 	private final DnDDetectorMulti wrapper;
 	
-	public TabPaneBody()
+	public TabPaneBody(FactoryContext factoryContext)
 	{
 		setBackground(Colors.contentBG);
 		setLayout(new BorderLayout());
-		wrapper = new DnDDetectorMulti(null);
+		wrapper = new DnDDetectorMulti(factoryContext, null);
 		add(wrapper);
 	}
 	

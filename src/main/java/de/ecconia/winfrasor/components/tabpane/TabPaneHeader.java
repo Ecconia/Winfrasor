@@ -10,29 +10,29 @@ import java.awt.LayoutManager;
 import java.awt.Point;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 
 import de.ecconia.winfrasor.TabData;
 import de.ecconia.winfrasor.components.Colors;
 import de.ecconia.winfrasor.components.Replacer;
-import de.ecconia.winfrasor.components.ReplacerRoot;
 import de.ecconia.winfrasor.components.dnd.drop.DropHandler;
 import de.ecconia.winfrasor.components.dnd.drop.DropListener;
+import de.ecconia.winfrasor.factories.FactoryContext;
 
 /**
  * The header of the TabPane, holds the tabs.
  */
 public class TabPaneHeader extends JComponent implements DropListener
 {
+	private final FactoryContext factoryContext;
+	private final TabPaneBody body;
+	
 	private Point dndPoint;
 	private TabPaneEntry active;
 	private boolean closeOnEmpty = true;
-	private boolean dropCreatesNewWindow;
 	
-	private final TabPaneBody body;
-	
-	public TabPaneHeader(TabPaneBody body)
+	public TabPaneHeader(FactoryContext factoryContext, TabPaneBody body)
 	{
+		this.factoryContext = factoryContext;
 		this.body = body;
 		
 		new DropHandler(this, this);
@@ -41,11 +41,6 @@ public class TabPaneHeader extends JComponent implements DropListener
 		
 		setLayout(new TabLayout());
 		setMinimumSize(new Dimension(30, 30));
-	}
-	
-	public void setDropCreatesNewWindow(boolean dropCreatesNewWindow)
-	{
-		this.dropCreatesNewWindow = dropCreatesNewWindow;
 	}
 	
 	public void setCloseOnEmpty(boolean closeOnEmpty)
@@ -112,25 +107,11 @@ public class TabPaneHeader extends JComponent implements DropListener
 	public void dragFailed(TabPaneEntry entry, Point location)
 	{
 		//Possibility of custom handler.
-		if(dropCreatesNewWindow)
+		if(factoryContext.isHandlingDragFail())
 		{
 			closed(entry);
 			TabData tabData = entry.getTab();
-			
-			//TODO: Factory.
-			JFrame someFrame = new JFrame("Generated window...");
-			someFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			
-			someFrame.setLocation(location.x, location.y);
-			
-			TabPane tabber = new TabPane();
-			tabber.setDropCreatesNewWindow(true);
-			tabber.addTab(tabData);
-			ReplacerRoot rootPane = new ReplacerRoot(tabber);
-			someFrame.add(rootPane.asComponent());
-			
-			someFrame.pack();
-			someFrame.setVisible(true);
+			factoryContext.handleDragFail(tabData, location);
 		}
 	}
 	

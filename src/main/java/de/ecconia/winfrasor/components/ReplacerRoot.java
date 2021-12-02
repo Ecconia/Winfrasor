@@ -8,6 +8,8 @@ import javax.swing.JComponent;
 import javax.swing.border.LineBorder;
 
 import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
+import de.ecconia.winfrasor.factories.DragFailedHandler;
+import de.ecconia.winfrasor.factories.FactoryContext;
 
 /**
  * This class is a root handler component to be inserted as top-level entry for this framework.
@@ -16,24 +18,31 @@ import de.ecconia.winfrasor.components.dnd.drop.DropLocation;
  */
 public class ReplacerRoot extends JComponent implements Replacer
 {
-	public ReplacerRoot(Component comp)
+	private final FactoryContext factoryContext;
+	public ReplacerRoot(FactoryContext factoryContext, Component comp, DragFailedHandler dragFailedHandler)
 	{
+		this.factoryContext = factoryContext;
 		setBackground(Colors.contentBG);
 		setLayout(new BorderLayout());
 		if(comp != null)
 		{
-			add(new ReplacerPane(comp));
+			add(new ReplacerPane(factoryContext, comp));
 		}
 		else
 		{
-			add(new ReplacerPane());
+			add(new ReplacerPane(factoryContext));
 		}
 		setBorder(new LineBorder(Colors.borderBG, 3));
 	}
 	
-	public ReplacerRoot()
+	public ReplacerRoot(FactoryContext factoryContext, Component comp)
 	{
-		this(null);
+		this(factoryContext, comp, null);
+	}
+	
+	public ReplacerRoot(FactoryContext factoryContext)
+	{
+		this(factoryContext, null, null);
 	}
 	
 	@Override
@@ -54,7 +63,7 @@ public class ReplacerRoot extends JComponent implements Replacer
 	public void removeComp(Component identifier)
 	{
 		removeAll();
-		add(new ReplacerPane());
+		add(new ReplacerPane(factoryContext));
 		
 		invalidate();
 		validate();
@@ -83,7 +92,7 @@ public class ReplacerRoot extends JComponent implements Replacer
 		//By now it can be something inserted (external) too.
 		if(!(component instanceof ReplacerPane))
 		{
-			component = new ReplacerPane(component);
+			component = new ReplacerPane(factoryContext, component);
 		}
 		add(component);
 	}

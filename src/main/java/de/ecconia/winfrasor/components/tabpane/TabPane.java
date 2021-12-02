@@ -6,6 +6,7 @@ import javax.swing.JComponent;
 
 import de.ecconia.winfrasor.TabData;
 import de.ecconia.winfrasor.components.NoWrap;
+import de.ecconia.winfrasor.factories.FactoryContext;
 
 /**
  * The TabPane has a header and a body. Its your custom TabView.
@@ -17,10 +18,10 @@ public class TabPane extends JComponent implements NoWrap
 	private final TabPaneHeader header;
 	private final TabPaneBody body;
 	
-	public TabPane()
+	public TabPane(FactoryContext factoryContext)
 	{
-		body = new TabPaneBody();
-		header = new TabPaneHeader(body);
+		body = new TabPaneBody(factoryContext);
+		header = new TabPaneHeader(factoryContext, body);
 		
 		setLayout(new BorderLayout());
 		add(header, BorderLayout.NORTH);
@@ -40,10 +41,5 @@ public class TabPane extends JComponent implements NoWrap
 	public void setNeverClose(boolean neverClose)
 	{
 		header.setCloseOnEmpty(!neverClose);
-	}
-	
-	public void setDropCreatesNewWindow(boolean dropCreatesNewWindow)
-	{
-		header.setDropCreatesNewWindow(dropCreatesNewWindow);
 	}
 }

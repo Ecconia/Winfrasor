@@ -9,6 +9,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import de.ecconia.winfrasor.factories.FactoryContext;
 import de.ecconia.winfrasor.misc.Orientation;
 import de.ecconia.winfrasor.components.dnd.drop.DnDWrapper;
 import de.ecconia.winfrasor.components.dnd.drop.DnDWrapper.DnDDetectorMulti;
@@ -24,6 +25,8 @@ import de.ecconia.winfrasor.misc.SplitterLayout;
  */
 public class ReplacerPane extends JComponent implements Replacer
 {
+	private final FactoryContext factoryContext;
+	
 	private Orientation orientation;
 	private float distribution = 0.5f;
 	
@@ -33,22 +36,25 @@ public class ReplacerPane extends JComponent implements Replacer
 	private SplitterLayout splitLayout;
 	private JPanel splitterPane;
 	
-	public ReplacerPane()
+	public ReplacerPane(FactoryContext factoryContext)
 	{
+		this.factoryContext = factoryContext;
 		setLayout(new BorderLayout());
-		add(new DnDDetectorSingle());
+		add(new DnDDetectorSingle(factoryContext));
 		//setBorder(new DebugBorder());
 	}
 	
-	public ReplacerPane(Component component)
+	public ReplacerPane(FactoryContext factoryContext, Component component)
 	{
+		this.factoryContext = factoryContext;
 		setLayout(new BorderLayout());
 		add(wrap(component));
 		//setBorder(new DebugBorder());
 	}
 	
-	public ReplacerPane(Orientation orientation, Component componentA, Component componentB)
+	public ReplacerPane(FactoryContext factoryContext, Orientation orientation, Component componentA, Component componentB)
 	{
+		this.factoryContext = factoryContext;
 		this.orientation = orientation;
 		initSplitter();
 		setLayout(splitLayout);
@@ -68,7 +74,7 @@ public class ReplacerPane extends JComponent implements Replacer
 		}
 		else
 		{
-			return new DnDDetectorMulti(component);
+			return new DnDDetectorMulti(factoryContext, component);
 		}
 	}
 	
@@ -121,7 +127,7 @@ public class ReplacerPane extends JComponent implements Replacer
 					Component keep = isFirst ? getComponent(2) : getComponent(0);
 					Component expand = isFirst ? getComponent(0) : getComponent(2);
 					
-					ReplacerPane splitter = new ReplacerPane(location.getOrientation(),
+					ReplacerPane splitter = new ReplacerPane(factoryContext, location.getOrientation(),
 							location.isFirst() ? component : expand,
 							location.isFirst() ? expand : component);
 					componentA = isFirst ? splitter : keep;

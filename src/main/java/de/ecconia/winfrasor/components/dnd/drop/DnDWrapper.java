@@ -11,17 +11,13 @@ import javax.swing.JComponent;
 import de.ecconia.winfrasor.TabData;
 import de.ecconia.winfrasor.components.Replacer;
 import de.ecconia.winfrasor.components.tabpane.TabPane;
+import de.ecconia.winfrasor.factories.FactoryContext;
 
 /**
  * Two classes to wrap a component to receive drop events.
  */
 public abstract class DnDWrapper extends JComponent
 {
-	public Component getWrapped()
-	{
-		return getComponent(0);
-	}
-	
 	private static void drawRing(Graphics g, int x, int y, int w, int h)
 	{
 		g.setColor(Color.orange);
@@ -35,10 +31,13 @@ public abstract class DnDWrapper extends JComponent
 	 */
 	public static class DnDDetectorSingle extends DnDWrapper implements DropListener
 	{
+		private final FactoryContext factoryContext;
+		
 		private Point dndPoint;
 		
-		public DnDDetectorSingle()
+		public DnDDetectorSingle(FactoryContext factoryContext)
 		{
+			this.factoryContext = factoryContext;
 			new DropHandler(this, this);
 		}
 		
@@ -65,9 +64,7 @@ public abstract class DnDWrapper extends JComponent
 		{
 			TabData data = (TabData) obj;
 			
-			//TODO: Factory
-			TabPane tabber = new TabPane();
-			tabber.setDropCreatesNewWindow(true);
+			TabPane tabber = factoryContext.createTabPane();
 			tabber.addTab(data);
 			
 			Replacer parent = (Replacer) getParent();
@@ -81,10 +78,13 @@ public abstract class DnDWrapper extends JComponent
 	 */
 	public static class DnDDetectorMulti extends DnDWrapper implements DropListener
 	{
+		private final FactoryContext factoryContext;
+		
 		private Point dndPoint;
 		
-		public DnDDetectorMulti(Component component)
+		public DnDDetectorMulti(FactoryContext factoryContext, Component component)
 		{
+			this.factoryContext = factoryContext;
 			new DropHandler(this, this);
 			
 			setLayout(new BorderLayout());
@@ -169,11 +169,8 @@ public abstract class DnDWrapper extends JComponent
 			{
 				TabData data = (TabData) obj;
 				
-				//TODO: Factory, which sets if drops generate new windows for example.
-				TabPane tabber = new TabPane();
-				tabber.setDropCreatesNewWindow(true);
+				TabPane tabber = factoryContext.createTabPane();
 				tabber.addTab(data);
-				
 				Replacer parent = (Replacer) getParent();
 				parent.replace(this, tabber, location);
 				return true;

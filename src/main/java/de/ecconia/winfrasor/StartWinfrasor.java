@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import de.ecconia.winfrasor.components.ReplacerRoot;
 import de.ecconia.winfrasor.components.tabpane.TabPane;
+import de.ecconia.winfrasor.factories.FactoryContext;
 import de.ecconia.winfrasor.misc.NoContent;
 
 public class StartWinfrasor
@@ -29,8 +30,29 @@ public class StartWinfrasor
 	 * - Overflow handling.
 	 */
 	
+	private static FactoryContext factories;
+	
 	public static void main(String[] args)
 	{
+		factories = new FactoryContext();
+		factories.setTabPaneFactory(() -> {
+			return new TabPane(factories);
+		});
+		factories.setDragFailedHandler((tabData, dropLocation) -> {
+			JFrame someFrame = new JFrame("Generated window...");
+			someFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			
+			someFrame.setLocation(dropLocation.x, dropLocation.y);
+			
+			TabPane tabber = factories.createTabPane();
+			tabber.addTab(tabData);
+			ReplacerRoot rootPane = new ReplacerRoot(factories, tabber);
+			someFrame.add(rootPane.asComponent());
+			
+			someFrame.pack();
+			someFrame.setVisible(true);
+		});
+		
 		//Origin of tabs, just an infinite generator as source for the other frame.
 		JFrame mainFrame = new JFrame("New Empty Frame");
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -38,9 +60,8 @@ public class StartWinfrasor
 		mainFrame.setLocation(1300, 100);
 		mainFrame.setPreferredSize(new Dimension(500, 100));
 		
-		TabPane tabber = new TabPane();
-		tabber.setDropCreatesNewWindow(true);
-		ReplacerRoot rootPane = new ReplacerRoot(tabber);
+		TabPane tabber = factories.createTabPane();
+		ReplacerRoot rootPane = new ReplacerRoot(factories, tabber);
 		mainFrame.add(rootPane.asComponent());
 		
 		mainFrame.pack();
@@ -53,7 +74,7 @@ public class StartWinfrasor
 		newMainFrame.setLocation(1300, 200);
 		newMainFrame.setPreferredSize(new Dimension(500, 500));
 		
-		ReplacerRoot root = new ReplacerRoot();
+		ReplacerRoot root = new ReplacerRoot(factories);
 		newMainFrame.add(root.asComponent());
 		
 		newMainFrame.pack();
