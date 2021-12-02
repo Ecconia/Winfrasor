@@ -12,11 +12,23 @@ public class TabData
 {
 	private final String title;
 	private final Component component;
+	private final boolean persistent;
 	
 	public TabData(String title, Component component)
 	{
+		this(title, component, false);
+	}
+	
+	public TabData(String title, Component component, boolean persistent)
+	{
 		this.title = title;
 		this.component = component;
+		this.persistent = persistent;
+	}
+	
+	public boolean isPersistent()
+	{
+		return persistent;
 	}
 	
 	public String getTitle()

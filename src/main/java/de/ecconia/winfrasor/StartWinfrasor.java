@@ -1,11 +1,19 @@
 package de.ecconia.winfrasor;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import de.ecconia.winfrasor.components.ReplacerPane;
 import de.ecconia.winfrasor.components.ReplacerRoot;
 import de.ecconia.winfrasor.components.tabpane.TabPane;
+import de.ecconia.winfrasor.components.tabpane.TabPaneEntry;
 import de.ecconia.winfrasor.factories.FactoryContext;
 import de.ecconia.winfrasor.misc.NoContent;
 
@@ -34,19 +42,71 @@ public class StartWinfrasor
 	
 	public static void main(String[] args)
 	{
+		//This listener could be used to prevent windows with persistent tabs from closing.
+		WindowAdapter onlyCloseWindowIfItDoesNotContainPersistentTabsAdapter = new WindowAdapter()
+		{
+			@Override
+			public void windowClosing(WindowEvent e)
+			{
+				JFrame window = (JFrame) e.getWindow();
+				//Search for persistent tabs:
+				boolean containsPersistentTabs = false;
+				//WARNING: Very unsafe code. Only works if the framework is not abused. With an API this would be much more pretty.
+				outer:
+				{
+					//Search for persistent tabs.
+					JPanel contentPane = (JPanel) window.getContentPane();
+					ReplacerRoot replacerRoot = (ReplacerRoot) contentPane.getComponent(0);
+					ReplacerPane pane = (ReplacerPane) replacerRoot.getComponent(0);
+					
+					LinkedList<ReplacerPane> panes = new LinkedList<>();
+					panes.addLast(pane);
+					while(!panes.isEmpty())
+					{
+						pane = panes.removeFirst();
+						for(Component component : pane.getComponents())
+						{
+							if(component instanceof TabPane)
+							{
+								TabPane tabber = (TabPane) component;
+								for(Component rawTab : ((Container) tabber.getComponent(0)).getComponents())
+								{
+									TabPaneEntry entry = (TabPaneEntry) rawTab;
+									if(entry.getTab().isPersistent())
+									{
+										containsPersistentTabs = true;
+										break outer;
+									}
+								}
+							}
+							else if(component instanceof ReplacerPane)
+							{
+								panes.addLast((ReplacerPane) component);
+							}
+						}
+					}
+				}
+				
+				if(!containsPersistentTabs)
+				{
+					window.dispose();
+				}
+			}
+		};
 		factories = new FactoryContext();
-		factories.setTabPaneFactory(() -> {
-			return new TabPane(factories);
-		});
+		//Default factory:
+//		factories.setTabPaneFactory(() -> {
+//			return new TabPane(factories);
+//		});
 		factories.setDragFailedHandler((tabData, dropLocation) -> {
 			JFrame someFrame = new JFrame("Generated window...");
-			someFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			
+			someFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			someFrame.addWindowListener(onlyCloseWindowIfItDoesNotContainPersistentTabsAdapter);
 			someFrame.setLocation(dropLocation.x, dropLocation.y);
 			
 			TabPane tabber = factories.createTabPane();
 			tabber.addTab(tabData);
-			ReplacerRoot rootPane = new ReplacerRoot(factories, tabber);
+			final ReplacerRoot rootPane = new ReplacerRoot(factories, tabber);
 			someFrame.add(rootPane.asComponent());
 			
 			someFrame.pack();
@@ -82,13 +142,16 @@ public class StartWinfrasor
 		
 		//Refill the amount of TAB to 10, until the window gets closed.
 		int label = 0;
+		boolean removable = true;
 		while(mainFrame.isVisible())
 		{
 			int missingAmount = 10 - tabber.getTabAmount();
 			for(int i = 0; i < missingAmount; i++)
 			{
-				tabber.addTab(new TabData("Tab: " + label, new NoContent("Long text, yay very long, hmm long, yes! " + label)));
+				TabData tabData = new TabData("Tab: " + label, new NoContent("Long text, yay very long, hmm long, yes! " + label), removable);
+				tabber.addTab(tabData);
 				label++;
+				removable = !removable;
 			}
 			
 			try

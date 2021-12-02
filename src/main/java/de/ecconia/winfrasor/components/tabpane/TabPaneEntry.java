@@ -66,7 +66,7 @@ public class TabPaneEntry extends JComponent implements DragListener
 			public void mouseClicked(MouseEvent e)
 			{
 				Point p = new Point(e.getX(), e.getY());
-				if(e.getButton() == MouseEvent.BUTTON2 || isClosePressed(p))
+				if(!tab.isPersistent() && (e.getButton() == MouseEvent.BUTTON2 || isClosePressed(p)))
 				{
 					header.closed(TabPaneEntry.this);
 					return;
@@ -75,7 +75,6 @@ public class TabPaneEntry extends JComponent implements DragListener
 				if(e.getButton() == MouseEvent.BUTTON1)
 				{
 					header.clicked(TabPaneEntry.this);
-					return;
 				}
 			}
 		});
@@ -86,7 +85,7 @@ public class TabPaneEntry extends JComponent implements DragListener
 		FontMetrics metrics = getFontMetrics(getFont());
 		String title = tab.getTitle();
 		int titleWidth = metrics.stringWidth(title);
-		int tabWidth = 10 + titleWidth + tabHeight;
+		int tabWidth = 10 + titleWidth + (tab.isPersistent() ? 10 : tabHeight);
 		setPreferredSize(new Dimension(tabWidth, tabHeight));
 		
 		new DragHandler(this, this, tab);
@@ -115,7 +114,7 @@ public class TabPaneEntry extends JComponent implements DragListener
 		int x = insets.left;
 		int y = insets.top;
 		
-		int tabWidth = 10 + titleWidth + tabHeight;
+		int tabWidth = 10 + titleWidth + (tab.isPersistent() ? 10 : tabHeight);
 		
 		g.setColor(active ? Colors.selectedBG : Colors.unselectedBG);
 		if(hovered)
@@ -127,14 +126,17 @@ public class TabPaneEntry extends JComponent implements DragListener
 		g.setColor(Colors.text);
 		g.drawString(title, x + 10, y + tabHeight / 2 + titleHeight / 2 - 1);
 		
-		g.setColor(Color.black);
-		int x1 = x + tabWidth - (tabHeight - 10);
-		int y1 = y + 10;
-		int x2 = x + tabWidth - 10;
-		int y2 = y + tabHeight - 10;
-		
-		g.drawLine(x1, y1, x2, y2);
-		g.drawLine(x2, y1, x1, y2);
+		if(!tab.isPersistent())
+		{
+			g.setColor(Color.black);
+			int x1 = x + tabWidth - (tabHeight - 10);
+			int y1 = y + 10;
+			int x2 = x + tabWidth - 10;
+			int y2 = y + tabHeight - 10;
+			
+			g.drawLine(x1, y1, x2, y2);
+			g.drawLine(x2, y1, x1, y2);
+		}
 		
 		setPreferredSize(new Dimension(tabWidth, tabHeight));
 	}
